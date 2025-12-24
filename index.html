@@ -50,7 +50,7 @@ body{
   100%{transform:translate(-50%,0); opacity:.6;}
 }
 
-/* Tree */
+/* Tree (UNCHANGED) */
 #tree{
   position:absolute;
   bottom:-300px;
@@ -60,7 +60,7 @@ body{
 }
 @keyframes riseTree{ to{bottom:0;} }
 
-/* Trunk */
+/* Trunk (UNCHANGED) */
 #trunk{
   width:26px;
   height:0;
@@ -137,21 +137,22 @@ body{
   transform:translateY(0);
   pointer-events:auto;
 }
-#loveBtn.hide{
-  opacity:0;
-  transform:translateY(20px) scale(.9);
-  pointer-events:none;
-}
 
 /* Flowers */
 .flower{
-  position:absolute;
+  position:fixed;
   top:-10vh;
   font-size:20px;
-  animation:fall 9s linear forwards;
+  pointer-events:none;
+  animation:fall linear forwards;
 }
 @keyframes fall{
   to{transform:translateY(110vh) rotate(360deg); opacity:0;}
+}
+
+/* Mobile optimization (NO visual change) */
+@media (max-width:768px){
+  .leaf{ filter:none; }
 }
 </style>
 </head>
@@ -167,7 +168,6 @@ body{
 </div>
 
 <div id="text"></div>
-
 <button id="loveBtn">I love you ❤️ — if you love me click here</button>
 
 <audio id="music" loop>
@@ -184,7 +184,9 @@ const loveBtn=document.getElementById("loveBtn");
 const music=document.getElementById("music");
 
 let typingStarted=false;
+let flowerInterval;
 
+/* HEART SHAPE (same logic, fewer points) */
 function buildHeartPoints(){
   const w=heartTree.clientWidth;
   const h=heartTree.clientHeight;
@@ -193,13 +195,13 @@ function buildHeartPoints(){
   const scale=Math.min(w,h)*0.032;
 
   const outline=[], fill=[];
-  for(let i=0;i<240;i++){
-    const t=(i/240)*Math.PI*2;
+  for(let i=0;i<200;i++){
+    const t=(i/200)*Math.PI*2;
     const x=16*Math.pow(Math.sin(t),3);
     const y=13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t);
     outline.push([cx+x*scale,cy-y*scale]);
   }
-  for(let i=0;i<600;i++){
+  for(let i=0;i<360;i++){
     const b=outline[Math.random()*outline.length|0];
     const pull=Math.pow(Math.random(),1.6);
     fill.push([
@@ -225,6 +227,7 @@ function spawnHeart(points){
   });
 }
 
+/* MESSAGE */
 const message=`
 Happy New Year ✨<br><br>
 Une nouvelle année commence,<br>
@@ -247,6 +250,7 @@ start.onclick=()=>{
   tree.style.display="block";
   music.play();
   spawnHeart(buildHeartPoints());
+  startFlowerRain();
   setTimeout(()=>loveBtn.classList.add("show"),10000);
 };
 
@@ -254,26 +258,30 @@ loveBtn.onclick=()=>{
   if(typingStarted) return;
   typingStarted=true;
 
-  loveBtn.classList.remove("show");
-  loveBtn.classList.add("hide");
-
+  loveBtn.style.display="none";
   textBox.style.opacity=1;
+
   let i=0;
   const t=setInterval(()=>{
     textBox.innerHTML=message.slice(0,i++);
-    flower();
     if(i>message.length) clearInterval(t);
   },70);
 };
 
-function flower(){
-  const f=document.createElement("div");
-  f.className="flower";
-  f.innerHTML="🌸";
-  f.style.left=Math.random()*100+"vw";
-  f.style.animationDuration=(Math.random()*3+6)+"s";
-  document.body.appendChild(f);
-  setTimeout(()=>f.remove(),9000);
+/* 🌸 ENDLESS FLOWER RAIN (SAFE) */
+function startFlowerRain(){
+  flowerInterval=setInterval(()=>{
+    if(document.querySelectorAll('.flower').length>25) return;
+
+    const f=document.createElement("div");
+    f.className="flower";
+    f.innerHTML=Math.random()>0.5?"🌸":"💖";
+    f.style.left=Math.random()*100+"vw";
+    f.style.animationDuration=(Math.random()*3+6)+"s";
+    document.body.appendChild(f);
+
+    setTimeout(()=>f.remove(),9000);
+  },450);
 }
 </script>
 
