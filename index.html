@@ -25,11 +25,29 @@ body{
   font-size:100px;
   cursor:pointer;
   animation:pulse 2.4s cubic-bezier(.4,0,.2,1) infinite;
+  filter:drop-shadow(0 0 18px rgba(255,80,90,.6));
 }
 @keyframes pulse{
   0%{transform:translate(-50%,-50%) scale(1);}
   50%{transform:translate(-50%,-50%) scale(1.25);}
   100%{transform:translate(-50%,-50%) scale(1);}
+}
+
+/* Click hint */
+#startHint{
+  position:absolute;
+  top:58%;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:18px;
+  opacity:.85;
+  animation:hintFloat 2.2s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes hintFloat{
+  0%{transform:translate(-50%,0); opacity:.6;}
+  50%{transform:translate(-50%,8px); opacity:1;}
+  100%{transform:translate(-50%,0); opacity:.6;}
 }
 
 /* Tree */
@@ -141,6 +159,7 @@ body{
 <body>
 
 <div id="start">❤️</div>
+<div id="startHint">Click the heart ❤️</div>
 
 <div id="tree">
   <div id="heartTree"></div>
@@ -157,6 +176,7 @@ body{
 
 <script>
 const start=document.getElementById("start");
+const hint=document.getElementById("startHint");
 const tree=document.getElementById("tree");
 const heartTree=document.getElementById("heartTree");
 const textBox=document.getElementById("text");
@@ -223,6 +243,7 @@ and for every year our love keeps rising ✨
 
 start.onclick=()=>{
   start.style.display="none";
+  hint.style.display="none";
   tree.style.display="block";
   music.play();
   spawnHeart(buildHeartPoints());
