@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Happy New Year ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  background:radial-gradient(circle at top,#0b0b2e,#000);
+  overflow:hidden;
+  font-family:'Poppins',sans-serif;
+  color:white;
+}
+
+/* Start heart */
+#start{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:100px;
+  cursor:pointer;
+  animation:pulse 1.8s infinite;
+}
+@keyframes pulse{
+  0%{transform:translate(-50%,-50%) scale(1);}
+  50%{transform:translate(-50%,-50%) scale(1.2);}
+  100%{transform:translate(-50%,-50%) scale(1);}
+}
+
+/* Tree */
+#tree{
+  position:absolute;
+  bottom:-300px;
+  left:5%;
+  display:none;
+  animation:riseTree 4s ease forwards;
+}
+@keyframes riseTree{ to{bottom:0;} }
+
+/* Trunk */
+#trunk{
+  width:26px;
+  height:0;
+  background:#6b4b3e;
+  margin:auto;
+  border-radius:14px;
+  box-shadow: inset 0 0 18px rgba(0,0,0,.35);
+  animation:growTrunk 3.2s ease forwards;
+}
+@keyframes growTrunk{ to{height:260px;} }
+
+/* Heart area */
+#heartTree{
+  width:520px;
+  height:460px;
+  position:relative;
+  margin:0 auto 12px auto;
+}
+
+/* Heart leaves */
+.leaf{
+  position:absolute;
+  opacity:0;
+  transform:translateY(14px) scale(0.45);
+  animation:bloom 1.8s cubic-bezier(.2,.7,.2,1) forwards;
+  filter:
+    drop-shadow(0 0 10px rgba(255,70,90,.35))
+    drop-shadow(0 0 20px rgba(255,70,90,.2));
+}
+@keyframes bloom{
+  0%{opacity:0; transform:translateY(18px) scale(0.4); filter:blur(0.8px);}
+  60%{opacity:1;}
+  100%{opacity:1; transform:translateY(0) scale(1); filter:blur(0);}
+}
+
+/* Text */
+#text{
+  position:absolute;
+  top:16%;
+  right:6%;
+  width:42%;
+  font-size:22px;
+  line-height:1.6;
+  opacity:0;
+}
+.name{
+  font-family:'Great Vibes',cursive;
+  font-size:56px;
+  color:#ff4d4d;
+  text-shadow:0 0 20px rgba(255,80,80,.9);
+}
+
+/* Button */
+#loveBtn{
+  position:absolute;
+  right:6%;
+  top:72%;
+  padding:14px 22px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.22);
+  background:rgba(255, 77, 77, .15);
+  color:#fff;
+  font-size:17px;
+  cursor:pointer;
+  opacity:0;
+  transform:translateY(12px);
+  pointer-events:none;
+  transition:.7s ease;
+}
+#loveBtn.show{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+
+/* Flowers */
+.flower{
+  position:absolute;
+  top:-10vh;
+  font-size:20px;
+  animation:fall 8s linear forwards;
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg); opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div id="start">❤️</div>
+
+<div id="tree">
+  <div id="heartTree"></div>
+  <div id="trunk"></div>
+</div>
+
+<div id="text"></div>
+<button id="loveBtn">I love you ❤️</button>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_946bdbb4c3.mp3">
+</audio>
+
+<script>
+const start=document.getElementById("start");
+const tree=document.getElementById("tree");
+const heartTree=document.getElementById("heartTree");
+const textBox=document.getElementById("text");
+const loveBtn=document.getElementById("loveBtn");
+const music=document.getElementById("music");
+
+let typingStarted=false;
+
+function buildHeartPoints(){
+  const w=heartTree.clientWidth;
+  const h=heartTree.clientHeight;
+  const cx=w*0.5;
+  const cy=h*0.55;
+  const scale=Math.min(w,h)*0.032;
+
+  const outline=[], fill=[];
+  for(let i=0;i<240;i++){
+    const t=(i/240)*Math.PI*2;
+    const x=16*Math.pow(Math.sin(t),3);
+    const y=13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t);
+    outline.push([cx+x*scale,cy-y*scale]);
+  }
+  for(let i=0;i<600;i++){
+    const b=outline[Math.random()*outline.length|0];
+    const pull=Math.pow(Math.random(),1.6);
+    fill.push([
+      b[0]+(cx-b[0])*pull+(Math.random()-0.5)*8,
+      b[1]+(cy-b[1])*pull+(Math.random()-0.5)*8
+    ]);
+  }
+  return fill.concat(outline).sort((a,b)=>b[1]-a[1]);
+}
+
+function spawnHeart(points){
+  heartTree.innerHTML="";
+  const base=2.8, step=0.028;
+  points.forEach((p,i)=>{
+    const l=document.createElement("div");
+    l.className="leaf";
+    l.innerHTML="❤️";
+    l.style.left=p[0]+"px";
+    l.style.top=p[1]+"px";
+    l.style.fontSize=(15+Math.random()*10)+"px";
+    l.style.animationDelay=(base+i*step)+"s";
+    heartTree.appendChild(l);
+  });
+}
+
+const message=`
+Happy New Year ✨<br><br>
+Une nouvelle année commence,<br>
+and from our roots, love keeps growing,<br>
+plus fort, plus haut, plus nous ❤️<br><br>
+
+<span class="name">Maroua ❤️</span><br>
+hamlghkam a dunithiw<br>
+rabi ikhlina lba3dana ❤️<br>
+kol 3am w hna kifkif ❤️<br><br>
+
+Je t’aime today,<br>
+je t’aime tomorrow,<br>
+and for every year our love keeps rising ✨
+`;
+
+start.onclick=()=>{
+  start.style.display="none";
+  tree.style.display="block";
+  music.play();
+  spawnHeart(buildHeartPoints());
+  setTimeout(()=>loveBtn.classList.add("show"),9000);
+};
+
+loveBtn.onclick=()=>{
+  if(typingStarted) return;
+  typingStarted=true;
+  textBox.style.opacity=1;
+  let i=0;
+  const t=setInterval(()=>{
+    textBox.innerHTML=message.slice(0,i++);
+    flower();
+    if(i>message.length) clearInterval(t);
+  },55);
+};
+
+function flower(){
+  const f=document.createElement("div");
+  f.className="flower";
+  f.innerHTML="🌸";
+  f.style.left=Math.random()*100+"vw";
+  f.style.animationDuration=(Math.random()*3+6)+"s";
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),9000);
+}
+</script>
+
+</body>
+</html>
