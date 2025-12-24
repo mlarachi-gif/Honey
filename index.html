@@ -24,11 +24,11 @@ body{
   transform:translate(-50%,-50%);
   font-size:100px;
   cursor:pointer;
-  animation:pulse 1.8s infinite;
+  animation:pulse 2.4s cubic-bezier(.4,0,.2,1) infinite;
 }
 @keyframes pulse{
   0%{transform:translate(-50%,-50%) scale(1);}
-  50%{transform:translate(-50%,-50%) scale(1.2);}
+  50%{transform:translate(-50%,-50%) scale(1.25);}
   100%{transform:translate(-50%,-50%) scale(1);}
 }
 
@@ -38,7 +38,7 @@ body{
   bottom:-300px;
   left:5%;
   display:none;
-  animation:riseTree 4s ease forwards;
+  animation:riseTree 5s cubic-bezier(.25,.8,.25,1) forwards;
 }
 @keyframes riseTree{ to{bottom:0;} }
 
@@ -50,7 +50,7 @@ body{
   margin:auto;
   border-radius:14px;
   box-shadow: inset 0 0 18px rgba(0,0,0,.35);
-  animation:growTrunk 3.2s ease forwards;
+  animation:growTrunk 4s cubic-bezier(.25,.8,.25,1) forwards;
 }
 @keyframes growTrunk{ to{height:260px;} }
 
@@ -66,16 +66,17 @@ body{
 .leaf{
   position:absolute;
   opacity:0;
-  transform:translateY(14px) scale(0.45);
-  animation:bloom 1.8s cubic-bezier(.2,.7,.2,1) forwards;
+  transform:translateY(20px) scale(0.3);
+  animation:bloom 2.6s cubic-bezier(.22,1,.36,1) forwards;
   filter:
     drop-shadow(0 0 10px rgba(255,70,90,.35))
     drop-shadow(0 0 20px rgba(255,70,90,.2));
 }
 @keyframes bloom{
-  0%{opacity:0; transform:translateY(18px) scale(0.4); filter:blur(0.8px);}
-  60%{opacity:1;}
-  100%{opacity:1; transform:translateY(0) scale(1); filter:blur(0);}
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
 }
 
 /* Text */
@@ -87,6 +88,7 @@ body{
   font-size:22px;
   line-height:1.6;
   opacity:0;
+  transition:opacity 1.5s ease;
 }
 .name{
   font-family:'Great Vibes',cursive;
@@ -108,14 +110,19 @@ body{
   font-size:17px;
   cursor:pointer;
   opacity:0;
-  transform:translateY(12px);
+  transform:translateY(14px);
   pointer-events:none;
-  transition:.7s ease;
+  transition:1.2s cubic-bezier(.25,.8,.25,1);
 }
 #loveBtn.show{
   opacity:1;
   transform:translateY(0);
   pointer-events:auto;
+}
+#loveBtn.hide{
+  opacity:0;
+  transform:translateY(20px) scale(.9);
+  pointer-events:none;
 }
 
 /* Flowers */
@@ -123,7 +130,7 @@ body{
   position:absolute;
   top:-10vh;
   font-size:20px;
-  animation:fall 8s linear forwards;
+  animation:fall 9s linear forwards;
 }
 @keyframes fall{
   to{transform:translateY(110vh) rotate(360deg); opacity:0;}
@@ -142,7 +149,6 @@ body{
 
 <div id="text"></div>
 
-<!-- ✅ ONLY TEXT CHANGED HERE -->
 <button id="loveBtn">I love you ❤️ — if you love me click here</button>
 
 <audio id="music" loop>
@@ -186,7 +192,7 @@ function buildHeartPoints(){
 
 function spawnHeart(points){
   heartTree.innerHTML="";
-  const base=2.8, step=0.028;
+  const base=3.2, step=0.03;
   points.forEach((p,i)=>{
     const l=document.createElement("div");
     l.className="leaf";
@@ -220,19 +226,23 @@ start.onclick=()=>{
   tree.style.display="block";
   music.play();
   spawnHeart(buildHeartPoints());
-  setTimeout(()=>loveBtn.classList.add("show"),9000);
+  setTimeout(()=>loveBtn.classList.add("show"),10000);
 };
 
 loveBtn.onclick=()=>{
   if(typingStarted) return;
   typingStarted=true;
+
+  loveBtn.classList.remove("show");
+  loveBtn.classList.add("hide");
+
   textBox.style.opacity=1;
   let i=0;
   const t=setInterval(()=>{
     textBox.innerHTML=message.slice(0,i++);
     flower();
     if(i>message.length) clearInterval(t);
-  },55);
+  },70);
 };
 
 function flower(){
