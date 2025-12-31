@@ -16,16 +16,21 @@ body{
   color:white;
 }
 
-/* Start heart */
+/* Start heart - ENHANCED */
 #start{
   position:absolute;
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
-  font-size:100px;
+  font-size:120px;
   cursor:pointer;
   animation:pulse 2.4s cubic-bezier(.4,0,.2,1) infinite;
-  filter:drop-shadow(0 0 18px rgba(255,80,90,.6));
+  filter:drop-shadow(0 0 30px rgba(255,80,90,.8)) drop-shadow(0 0 60px rgba(255,80,90,.4));
+  transition: all 0.3s ease;
+}
+#start:hover{
+  transform:translate(-50%,-50%) scale(1.15);
+  filter:drop-shadow(0 0 40px rgba(255,80,90,1)) drop-shadow(0 0 80px rgba(255,80,90,.6));
 }
 @keyframes pulse{
   0%{transform:translate(-50%,-50%) scale(1);}
@@ -33,75 +38,136 @@ body{
   100%{transform:translate(-50%,-50%) scale(1);}
 }
 
-/* Click hint */
+/* Click hint - ENHANCED */
 #startHint{
   position:absolute;
   top:58%;
   left:50%;
   transform:translateX(-50%);
-  font-size:18px;
-  opacity:.85;
+  font-size:20px;
+  font-weight:500;
+  opacity:.9;
   animation:hintFloat 2.2s ease-in-out infinite;
   pointer-events:none;
+  background:linear-gradient(135deg, rgba(255,77,77,.15), rgba(196,69,105,.15));
+  padding:12px 28px;
+  border-radius:50px;
+  border:2px solid rgba(255,107,157,.3);
+  box-shadow:0 0 25px rgba(255,107,157,.4);
 }
 @keyframes hintFloat{
-  0%{transform:translate(-50%,0); opacity:.6;}
+  0%{transform:translate(-50%,0); opacity:.7;}
   50%{transform:translate(-50%,8px); opacity:1;}
-  100%{transform:translate(-50%,0); opacity:.6;}
+  100%{transform:translate(-50%,0); opacity:.7;}
 }
 
-/* Tree - LEFT SIDE - SMALLER */
+/* Tree - LEFT SIDE - MORE ROMANTIC */
 #tree{
   position:absolute;
   bottom:-400px;
   left:2%;
   display:none;
-  animation:riseTree 4.5s cubic-bezier(.34,.8,.34,1) forwards, sway 3s ease-in-out infinite 5s;
+  animation:riseTree 5s cubic-bezier(.34,.8,.34,1) forwards, sway 4s ease-in-out infinite 5.5s;
+  filter:drop-shadow(0 10px 30px rgba(255,80,90,.3));
 }
-@keyframes riseTree{ to{bottom:0;} }
+@keyframes riseTree{ 
+  to{
+    bottom:0;
+    filter:drop-shadow(0 10px 40px rgba(255,80,90,.4));
+  } 
+}
 @keyframes sway{
-  0%, 100%{ transform:rotate(0deg); }
-  50%{ transform:rotate(1deg); }
+  0%, 100%{ 
+    transform:rotate(0deg); 
+  }
+  25%{ 
+    transform:rotate(-1.5deg); 
+  }
+  75%{ 
+    transform:rotate(1.5deg); 
+  }
 }
 
-/* Trunk - SMALLER */
+/* Trunk - SMOOTHER & MORE ROMANTIC */
 #trunk{
   width:32px;
   height:0;
-  background:linear-gradient(to bottom, #8B4513, #654321);
+  background:linear-gradient(to bottom, #8B4513 0%, #654321 50%, #4a2f1a 100%);
   margin:auto;
   border-radius:16px;
-  box-shadow: inset 0 0 18px rgba(0,0,0,.35);
-  animation:growTrunk 3.5s cubic-bezier(.34,.8,.34,1) forwards;
+  box-shadow: 
+    inset 0 0 18px rgba(0,0,0,.35),
+    0 5px 20px rgba(139,69,19,.3);
+  animation:growTrunk 4s cubic-bezier(.34,.8,.34,1) forwards;
+  position:relative;
 }
-@keyframes growTrunk{ to{height:320px;} }
+#trunk::after{
+  content:'';
+  position:absolute;
+  top:0;
+  left:50%;
+  width:50%;
+  height:100%;
+  background:linear-gradient(to right, rgba(255,255,255,.1), transparent);
+  border-radius:16px 0 0 16px;
+}
+@keyframes growTrunk{ 
+  0%{
+    height:0;
+    opacity:0;
+  }
+  50%{
+    opacity:1;
+  }
+  100%{
+    height:320px;
+    opacity:1;
+  } 
+}
 
-/* Heart area - SMALLER */
+/* Heart area - MORE ROMANTIC */
 #heartTree{
   width:550px;
   height:480px;
   position:relative;
   margin:0 auto 12px auto;
+  animation:heartGlow 3s ease-in-out infinite 8s;
 }
 
-/* Heart leaves - SMOOTHER */
+@keyframes heartGlow{
+  0%, 100%{
+    filter:drop-shadow(0 0 15px rgba(255,70,90,.3));
+  }
+  50%{
+    filter:drop-shadow(0 0 30px rgba(255,70,90,.6));
+  }
+}
+
+/* Heart leaves - MORE ROMANTIC & SMOOTH */
 .leaf{
   position:absolute;
   opacity:0;
   transform:translateY(30px) scale(0.2) rotate(0deg);
-  animation:bloom 2.8s cubic-bezier(.34,1.2,.64,1) forwards;
+  animation:bloom 3.2s cubic-bezier(.34,1.2,.64,1) forwards;
   filter:
-    drop-shadow(0 0 12px rgba(255,70,90,.4))
-    drop-shadow(0 0 25px rgba(255,70,90,.25));
+    drop-shadow(0 0 12px rgba(255,70,90,.5))
+    drop-shadow(0 0 25px rgba(255,70,90,.3));
 }
 @keyframes bloom{
   0%{
     opacity:0;
-    transform:translateY(30px) scale(0.2) rotate(-20deg);
+    transform:translateY(40px) scale(0.1) rotate(-30deg);
+  }
+  40%{
+    opacity:0.7;
+    transform:translateY(10px) scale(0.9) rotate(10deg);
   }
   60%{
     opacity:1;
-    transform:translateY(-5px) scale(1.08) rotate(5deg);
+    transform:translateY(-8px) scale(1.12) rotate(5deg);
+  }
+  75%{
+    transform:translateY(-3px) scale(1.05) rotate(-2deg);
   }
   100%{
     opacity:1;
@@ -132,23 +198,46 @@ body{
   text-shadow:0 0 20px rgba(255,80,80,.9);
 }
 
-/* Button - MORE ROMANTIC */
+/* Button - MORE AESTHETIC */
 #loveBtn{
   position:absolute;
   right:6%;
   top:72%;
-  padding:16px 32px;
-  border-radius:999px;
-  border:2px solid rgba(255,107,157,.4);
-  background:linear-gradient(135deg, rgba(255,77,77,.2), rgba(196,69,105,.2));
+  padding:18px 40px;
+  border-radius:50px;
+  border:2px solid transparent;
+  background:linear-gradient(135deg, rgba(255,77,77,.25), rgba(196,69,105,.25));
+  background-clip:padding-box;
   color:#ffb3d9;
-  font-size:18px;
+  font-size:19px;
+  font-weight:500;
   cursor:pointer;
   opacity:0;
   transform:translateY(20px);
   pointer-events:none;
-  transition:all 1.4s cubic-bezier(.34,.8,.34,1);
-  box-shadow:0 0 20px rgba(255,107,157,.3);
+  transition:all 0.4s cubic-bezier(.34,.8,.34,1);
+  box-shadow:
+    0 0 30px rgba(255,107,157,.5),
+    inset 0 0 20px rgba(255,107,157,.15);
+  position:relative;
+  overflow:hidden;
+}
+#loveBtn::before{
+  content:'';
+  position:absolute;
+  top:-2px;
+  left:-2px;
+  right:-2px;
+  bottom:-2px;
+  background:linear-gradient(135deg, #ff4d6d, #c44569, #ff6b9d);
+  border-radius:50px;
+  z-index:-1;
+  opacity:0.6;
+  animation:borderGlow 3s ease infinite;
+}
+@keyframes borderGlow{
+  0%, 100%{ opacity:0.6; }
+  50%{ opacity:1; }
 }
 #loveBtn.show{
   opacity:1;
@@ -156,28 +245,50 @@ body{
   pointer-events:auto;
 }
 #loveBtn:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 35px rgba(255,107,157,.6);
-  border-color:rgba(255,107,157,.8);
+  transform:translateY(-3px) scale(1.05);
+  box-shadow:
+    0 0 50px rgba(255,107,157,.8),
+    0 10px 30px rgba(255,107,157,.4),
+    inset 0 0 30px rgba(255,107,157,.25);
+  color:#fff;
 }
 
-/* Final Button - MORE ROMANTIC */
+/* Final Button - MORE AESTHETIC */
 #finalBtn{
   position:absolute;
   right:6%;
   top:82%;
-  padding:16px 32px;
-  border-radius:999px;
-  border:2px solid rgba(255,215,0,.5);
-  background:linear-gradient(135deg, rgba(255,215,0,.2), rgba(255,185,0,.2));
+  padding:18px 40px;
+  border-radius:50px;
+  border:2px solid transparent;
+  background:linear-gradient(135deg, rgba(255,215,0,.25), rgba(255,185,0,.25));
+  background-clip:padding-box;
   color:#ffd700;
-  font-size:18px;
+  font-size:19px;
+  font-weight:500;
   cursor:pointer;
   opacity:0;
   transform:translateY(20px);
   pointer-events:none;
-  transition:all 1.4s cubic-bezier(.34,.8,.34,1);
-  box-shadow:0 0 20px rgba(255,215,0,.3);
+  transition:all 0.4s cubic-bezier(.34,.8,.34,1);
+  box-shadow:
+    0 0 30px rgba(255,215,0,.5),
+    inset 0 0 20px rgba(255,215,0,.15);
+  position:relative;
+  overflow:hidden;
+}
+#finalBtn::before{
+  content:'';
+  position:absolute;
+  top:-2px;
+  left:-2px;
+  right:-2px;
+  bottom:-2px;
+  background:linear-gradient(135deg, #ffd700, #ffb900, #ffa500);
+  border-radius:50px;
+  z-index:-1;
+  opacity:0.6;
+  animation:borderGlow 3s ease infinite;
 }
 #finalBtn.show{
   opacity:1;
@@ -185,12 +296,15 @@ body{
   pointer-events:auto;
 }
 #finalBtn:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 35px rgba(255,215,0,.6);
-  border-color:rgba(255,215,0,.9);
+  transform:translateY(-3px) scale(1.05);
+  box-shadow:
+    0 0 50px rgba(255,215,0,.8),
+    0 10px 30px rgba(255,215,0,.4),
+    inset 0 0 30px rgba(255,215,0,.25);
+  color:#fff;
 }
 
-/* Final Scene - ANIMATED */
+/* Final Scene - ENHANCED AESTHETIC */
 #finalScene{
   position:fixed;
   top:0;
@@ -203,115 +317,259 @@ body{
   align-items:center;
   z-index:1000;
   opacity:0;
-  transition:all 2s ease;
+  transition:all 3s ease;
 }
 #finalScene.show{
   display:flex;
   opacity:1;
-  background:rgba(0,0,0,0.95);
+  background:radial-gradient(ellipse at center, rgba(10,10,40,0.98), rgba(0,0,0,0.99));
 }
 
 #finalContent{
   text-align:center;
-  max-width:800px;
-  padding:40px;
+  max-width:1000px;
+  padding:60px 40px;
   position:relative;
   z-index:2;
-  transform:scale(0.8);
-  opacity:0;
-  transition:all 1.5s cubic-bezier(.34,1.2,.64,1);
-}
-#finalScene.show #finalContent{
-  transform:scale(1);
-  opacity:1;
 }
 
 #finalContent h1{
   font-family:'Great Vibes',cursive;
-  font-size:64px;
+  font-size:78px;
   color:#ff4d4d;
-  margin-bottom:30px;
-  text-shadow:0 0 30px rgba(255,80,80,.9);
-  animation:titleGlow 3s ease-in-out infinite;
-}
-
-@keyframes titleGlow{
-  0%, 100%{ 
-    text-shadow:0 0 30px rgba(255,80,80,.9), 0 0 60px rgba(255,80,80,.5);
-    transform:scale(1);
-  }
-  50%{ 
-    text-shadow:0 0 40px rgba(255,80,80,1), 0 0 80px rgba(255,80,80,.7);
-    transform:scale(1.03);
-  }
-}
-
-#finalContent p{
-  font-size:26px;
-  line-height:2;
-  margin:20px 0;
+  margin-bottom:60px;
+  text-shadow:
+    0 0 40px rgba(255,80,80,1),
+    0 0 80px rgba(255,80,80,.6),
+    0 0 120px rgba(255,80,80,.3);
+  animation:titleGlow 4s ease-in-out infinite;
   opacity:0;
-  transform:translateY(20px);
-  animation:fadeInUp 1s ease forwards;
+  transform:translateY(-50px);
+}
+#finalScene.show #finalContent h1{
+  animation:titleGlow 4s ease-in-out infinite, titleDrop 2s cubic-bezier(.34,.8,.34,1) forwards;
 }
 
-#finalContent p:nth-child(2){ animation-delay:0.5s; }
-#finalContent p:nth-child(3){ animation-delay:1s; }
-#finalContent p:nth-child(4){ animation-delay:1.5s; }
-#finalContent p:nth-child(5){ animation-delay:2s; }
-#finalContent p:nth-child(6){ animation-delay:2.5s; }
-#finalContent p:nth-child(7){ animation-delay:3s; }
-#finalContent p:nth-child(8){ animation-delay:3.5s; }
-
-@keyframes fadeInUp{
+@keyframes titleDrop{
   to{
     opacity:1;
     transform:translateY(0);
   }
 }
 
-/* Plane animation - MORE DYNAMIC */
-#plane{
-  position:fixed;
-  font-size:60px;
-  z-index:1;
-  animation:flyAcross 10s ease-in-out infinite;
-  filter:drop-shadow(0 0 20px rgba(255,255,255,.6));
+@keyframes titleGlow{
+  0%, 100%{ 
+    text-shadow:
+      0 0 40px rgba(255,80,80,1),
+      0 0 80px rgba(255,80,80,.6),
+      0 0 120px rgba(255,80,80,.3);
+  }
+  50%{ 
+    text-shadow:
+      0 0 50px rgba(255,80,80,1),
+      0 0 100px rgba(255,80,80,.8),
+      0 0 150px rgba(255,80,80,.5);
+  }
 }
 
-@keyframes flyAcross{
+#finalContent .message-line{
+  font-size:32px;
+  font-weight:400;
+  line-height:2.4;
+  margin:20px 0;
+  opacity:0;
+  transform:translateY(-80px);
+  text-shadow:0 2px 15px rgba(255,255,255,.2);
+  letter-spacing:0.5px;
+}
+
+.message-line.visible{
+  animation:dropFromSky 2.5s cubic-bezier(.34,.8,.34,1) forwards;
+}
+
+@keyframes dropFromSky{
+  0%{
+    opacity:0;
+    transform:translateY(-100px) scale(0.8);
+  }
+  60%{
+    opacity:1;
+    transform:translateY(5px) scale(1.05);
+  }
+  80%{
+    transform:translateY(-2px) scale(1);
+  }
+  100%{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+/* Enhanced plane squadron animation - CONTINUOUS DROPPING */
+.plane-squadron{
+  position:fixed;
+  font-size:50px;
+  z-index:999;
+  filter:drop-shadow(0 0 20px rgba(255,255,255,.8));
+}
+
+/* Each plane drops one line continuously */
+.plane-1{
+  animation:planeFlightLeader 6s cubic-bezier(.42,0,.58,1) infinite;
+  animation-delay:0s;
+}
+.plane-2{
+  animation:planeFlightLeader 6s cubic-bezier(.42,0,.58,1) infinite;
+  animation-delay:7s;
+}
+.plane-3{
+  animation:planeFlightLeader 6s cubic-bezier(.42,0,.58,1) infinite;
+  animation-delay:14s;
+}
+.plane-4{
+  animation:planeFlightLeader 6s cubic-bezier(.42,0,.58,1) infinite;
+  animation-delay:21s;
+}
+.plane-5{
+  animation:planeFlightLeader 6s cubic-bezier(.42,0,.58,1) infinite;
+  animation-delay:28s;
+}
+.plane-6{
+  animation:planeFlightLeader 6s cubic-bezier(.42,0,.58,1) infinite;
+  animation-delay:35s;
+}
+.plane-7{
+  animation:planeFlightLeader 6s cubic-bezier(.42,0,.58,1) infinite;
+  animation-delay:42s;
+}
+
+@keyframes planeFlightLeader{
   0%{
     left:-100px;
-    top:15%;
-    transform:rotate(-15deg) scale(0.8);
+    top:-50px;
+    transform:rotate(-20deg) scale(0.6);
     opacity:0;
   }
   10%{
     opacity:1;
+    left:8%;
+    top:3%;
+    transform:rotate(-12deg) scale(0.75);
   }
-  30%{
-    left:30%;
-    top:25%;
-    transform:rotate(0deg) scale(1);
+  25%{
+    left:22%;
+    top:8%;
+    transform:rotate(-6deg) scale(0.85);
   }
-  50%{
-    left:50%;
-    top:30%;
-    transform:rotate(5deg) scale(1.1);
+  40%{
+    left:38%;
+    top:12%;
+    transform:rotate(-2deg) scale(0.95);
+  }
+  55%{
+    left:55%;
+    top:16%;
+    transform:rotate(2deg) scale(1);
   }
   70%{
-    left:70%;
-    top:35%;
-    transform:rotate(8deg) scale(1);
+    left:72%;
+    top:20%;
+    transform:rotate(6deg) scale(0.95);
   }
-  90%{
+  85%{
+    left:88%;
+    top:24%;
+    transform:rotate(12deg) scale(0.8);
     opacity:1;
   }
   100%{
-    left:110%;
-    top:40%;
-    transform:rotate(15deg) scale(0.8);
+    left:120%;
+    top:28%;
+    transform:rotate(20deg) scale(0.6);
     opacity:0;
+  }
+}
+
+/* Background plane for ambiance - SLOWER */
+#plane{
+  position:fixed;
+  font-size:60px;
+  z-index:1;
+  animation:flyAcrossEnhanced 25s cubic-bezier(.42,0,.58,1) infinite;
+  filter:drop-shadow(0 0 20px rgba(255,255,255,.4));
+  opacity:0.5;
+}
+
+@keyframes flyAcrossEnhanced{
+  0%{
+    left:-120px;
+    top:70%;
+    transform:rotate(-15deg) scale(0.6);
+    opacity:0;
+  }
+  8%{
+    opacity:0.5;
+  }
+  20%{
+    left:18%;
+    top:72%;
+    transform:rotate(-8deg) scale(0.7);
+  }
+  40%{
+    left:38%;
+    top:74%;
+    transform:rotate(-2deg) scale(0.75);
+  }
+  60%{
+    left:58%;
+    top:76%;
+    transform:rotate(3deg) scale(0.8);
+  }
+  80%{
+    left:78%;
+    top:78%;
+    transform:rotate(8deg) scale(0.75);
+  }
+  92%{
+    opacity:0.5;
+  }
+  100%{
+    left:115%;
+    top:80%;
+    transform:rotate(15deg) scale(0.6);
+    opacity:0;
+  }
+}
+
+/* Papers falling - SLOWER, MORE BEAUTIFUL */
+.paper{
+  position:fixed;
+  font-size:28px;
+  pointer-events:none;
+  z-index:1;
+  animation:paperFallSlow linear forwards;
+  filter:drop-shadow(0 0 8px rgba(255,255,255,.3));
+}
+@keyframes paperFallSlow{
+  0%{
+    transform:translateY(0) rotate(0deg) translateX(0);
+    opacity:1;
+  }
+  25%{
+    transform:translateY(25vh) rotate(180deg) translateX(-30px);
+    opacity:0.9;
+  }
+  50%{
+    transform:translateY(50vh) rotate(360deg) translateX(20px);
+    opacity:0.8;
+  }
+  75%{
+    transform:translateY(75vh) rotate(540deg) translateX(-15px);
+    opacity:0.6;
+  }
+  100%{
+    transform:translateY(110vh) rotate(720deg) translateX(0);
+    opacity:0.2;
   }
 }
 
@@ -329,6 +587,13 @@ body{
 
 /* Mobile optimization */
 @media (max-width:768px){
+  #start{
+    font-size:90px;
+  }
+  #startHint{
+    font-size:16px;
+    padding:10px 20px;
+  }
   .leaf{ filter:none; }
   #heartTree{
     width:350px;
@@ -345,7 +610,8 @@ body{
   }
   #loveBtn, #finalBtn{
     right:5%;
-    font-size:15px;
+    font-size:16px;
+    padding:14px 32px;
   }
   #finalContent{
     padding:20px;
@@ -353,8 +619,11 @@ body{
   #finalContent h1{
     font-size:42px;
   }
-  #finalContent p{
+  #finalContent .message-line{
     font-size:20px;
+  }
+  #plane{
+    font-size:50px;
   }
 }
 </style>
@@ -377,15 +646,23 @@ body{
 <div id="finalScene">
   <div id="plane">✈️</div>
   <div id="finalContent">
-    <h1>Code & Wings ✨</h1>
-    <p>J'écris des lignes qui donnent vie aux machines 💻</p>
-    <p>Tu dessines des ailes qui font voler les rêves 🚀</p>
-    <p>I build the logic that powers the world</p>
-    <p>You create the wings that conquer the sky</p>
-    <p>Together, nous créons l'impossible ∞</p>
-    <p style="color:#ffd700; font-size:32px; margin-top:40px;">Mon ingénieure aérospatiale ✨</p>
-    <p style="color:#ff4d4d; font-size:28px;">Code + Aéronautique = Notre Univers 💖</p>
+    <h1>Happy New Year ✨</h1>
+    <div class="message-line">As the year turns ✨</div>
+    <div class="message-line">between my code 💻 and your wings ✈️</div>
+    <div class="message-line">nos rêves yahdro m3a ba3d ❤️</div>
+    <div class="message-line">and take off into a new beginning 🚀</div>
+    <div class="message-line" style="margin-top:50px; font-size:38px; color:#ffd700;">Happy New Year</div>
+    <div class="message-line" style="font-size:36px; color:#ff4d4d;">to us, Maroua ❤️</div>
+    <div class="message-line" style="font-size:34px; color:#ffb3d9;">and dreams that never land ✨</div>
   </div>
+  <!-- Squadron planes -->
+  <div class="plane-squadron plane-1" style="left:-100px; top:-50px;">✈️</div>
+  <div class="plane-squadron plane-2" style="left:-100px; top:-50px;">✈️</div>
+  <div class="plane-squadron plane-3" style="left:-100px; top:-50px;">✈️</div>
+  <div class="plane-squadron plane-4" style="left:-100px; top:-50px;">✈️</div>
+  <div class="plane-squadron plane-5" style="left:-100px; top:-50px;">✈️</div>
+  <div class="plane-squadron plane-6" style="left:-100px; top:-50px;">✈️</div>
+  <div class="plane-squadron plane-7" style="left:-100px; top:-50px;">✈️</div>
 </div>
 
 <audio id="music" loop>
@@ -405,6 +682,7 @@ const music=document.getElementById("music");
 
 let typingStarted=false;
 let flowerInterval;
+let paperInterval;
 
 /* HEART SHAPE - SMALLER (adjusted points) */
 function buildHeartPoints(){
@@ -495,6 +773,35 @@ loveBtn.onclick=()=>{
 finalBtn.onclick=()=>{
   finalBtn.style.display="none";
   finalScene.classList.add("show");
+  
+  // Start paper rain when final scene appears
+  startPaperRain();
+  
+  // Animate text lines one by one - synchronized with continuous plane drops
+  const lines = document.querySelectorAll('.message-line');
+  
+  // First cycle of lines (initial drop)
+  lines.forEach((line, index) => {
+    setTimeout(() => {
+      line.classList.add('visible');
+    }, index * 800 + 2000);
+  });
+  
+  // Reset and repeat lines continuously with planes
+  let cycleCount = 0;
+  setInterval(() => {
+    cycleCount++;
+    lines.forEach((line, index) => {
+      setTimeout(() => {
+        // Remove visible class briefly
+        line.classList.remove('visible');
+        // Re-add it to trigger animation again
+        setTimeout(() => {
+          line.classList.add('visible');
+        }, 50);
+      }, index * 800);
+    });
+  }, 49000); // Repeat every 49 seconds (7 planes * 7 seconds)
 };
 
 /* 🌸 ENDLESS FLOWER RAIN */
@@ -511,6 +818,25 @@ function startFlowerRain(){
 
     setTimeout(()=>f.remove(),9000);
   },450);
+}
+
+/* 📄 PAPER RAIN - SLOWER, MORE GRACEFUL */
+function startPaperRain(){
+  const papers = ['📄', '📋', '📃', '🗒️'];
+  
+  paperInterval=setInterval(()=>{
+    if(document.querySelectorAll('.paper').length>15) return;
+
+    const p=document.createElement("div");
+    p.className="paper";
+    p.innerHTML=papers[Math.floor(Math.random()*papers.length)];
+    p.style.left=(Math.random()*90 + 5)+"vw"; // Keep papers more centered
+    p.style.top="-50px";
+    p.style.animationDuration=(Math.random()*4+10)+"s"; // Much slower: 10-14 seconds
+    document.body.appendChild(p);
+
+    setTimeout(()=>p.remove(),15000);
+  },800); // Less frequent spawning for elegance
 }
 </script>
 
