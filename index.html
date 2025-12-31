@@ -50,63 +50,80 @@ body{
   100%{transform:translate(-50%,0); opacity:.6;}
 }
 
-/* Tree (UNCHANGED) */
+/* Tree - LEFT SIDE - SMALLER */
 #tree{
   position:absolute;
-  bottom:-300px;
-  left:5%;
+  bottom:-400px;
+  left:2%;
   display:none;
-  animation:riseTree 5s cubic-bezier(.25,.8,.25,1) forwards;
+  animation:riseTree 4.5s cubic-bezier(.34,.8,.34,1) forwards, sway 3s ease-in-out infinite 5s;
 }
 @keyframes riseTree{ to{bottom:0;} }
-
-/* Trunk (UNCHANGED) */
-#trunk{
-  width:26px;
-  height:0;
-  background:#6b4b3e;
-  margin:auto;
-  border-radius:14px;
-  box-shadow: inset 0 0 18px rgba(0,0,0,.35);
-  animation:growTrunk 4s cubic-bezier(.25,.8,.25,1) forwards;
+@keyframes sway{
+  0%, 100%{ transform:rotate(0deg); }
+  50%{ transform:rotate(1deg); }
 }
-@keyframes growTrunk{ to{height:260px;} }
 
-/* Heart area */
+/* Trunk - SMALLER */
+#trunk{
+  width:32px;
+  height:0;
+  background:linear-gradient(to bottom, #8B4513, #654321);
+  margin:auto;
+  border-radius:16px;
+  box-shadow: inset 0 0 18px rgba(0,0,0,.35);
+  animation:growTrunk 3.5s cubic-bezier(.34,.8,.34,1) forwards;
+}
+@keyframes growTrunk{ to{height:320px;} }
+
+/* Heart area - SMALLER */
 #heartTree{
-  width:520px;
-  height:460px;
+  width:550px;
+  height:480px;
   position:relative;
   margin:0 auto 12px auto;
 }
 
-/* Heart leaves */
+/* Heart leaves - SMOOTHER */
 .leaf{
   position:absolute;
   opacity:0;
-  transform:translateY(20px) scale(0.3);
-  animation:bloom 2.6s cubic-bezier(.22,1,.36,1) forwards;
+  transform:translateY(30px) scale(0.2) rotate(0deg);
+  animation:bloom 2.8s cubic-bezier(.34,1.2,.64,1) forwards;
   filter:
-    drop-shadow(0 0 10px rgba(255,70,90,.35))
-    drop-shadow(0 0 20px rgba(255,70,90,.2));
+    drop-shadow(0 0 12px rgba(255,70,90,.4))
+    drop-shadow(0 0 25px rgba(255,70,90,.25));
 }
 @keyframes bloom{
-  to{
+  0%{
+    opacity:0;
+    transform:translateY(30px) scale(0.2) rotate(-20deg);
+  }
+  60%{
     opacity:1;
-    transform:translateY(0) scale(1);
+    transform:translateY(-5px) scale(1.08) rotate(5deg);
+  }
+  100%{
+    opacity:1;
+    transform:translateY(0) scale(1) rotate(0deg);
   }
 }
 
-/* Text */
+/* Text - SMOOTHER */
 #text{
   position:absolute;
   top:16%;
   right:6%;
   width:42%;
   font-size:22px;
-  line-height:1.6;
+  line-height:1.8;
   opacity:0;
-  transition:opacity 1.5s ease;
+  transition:opacity 2s ease, transform 2s ease;
+  transform:translateY(20px);
+}
+#text.visible{
+  opacity:1;
+  transform:translateY(0);
 }
 .name{
   font-family:'Great Vibes',cursive;
@@ -115,27 +132,187 @@ body{
   text-shadow:0 0 20px rgba(255,80,80,.9);
 }
 
-/* Button */
+/* Button - MORE ROMANTIC */
 #loveBtn{
   position:absolute;
   right:6%;
   top:72%;
-  padding:14px 22px;
+  padding:16px 32px;
   border-radius:999px;
-  border:1px solid rgba(255,255,255,.22);
-  background:rgba(255, 77, 77, .15);
-  color:#fff;
-  font-size:17px;
+  border:2px solid rgba(255,107,157,.4);
+  background:linear-gradient(135deg, rgba(255,77,77,.2), rgba(196,69,105,.2));
+  color:#ffb3d9;
+  font-size:18px;
   cursor:pointer;
   opacity:0;
-  transform:translateY(14px);
+  transform:translateY(20px);
   pointer-events:none;
-  transition:1.2s cubic-bezier(.25,.8,.25,1);
+  transition:all 1.4s cubic-bezier(.34,.8,.34,1);
+  box-shadow:0 0 20px rgba(255,107,157,.3);
 }
 #loveBtn.show{
   opacity:1;
   transform:translateY(0);
   pointer-events:auto;
+}
+#loveBtn:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 35px rgba(255,107,157,.6);
+  border-color:rgba(255,107,157,.8);
+}
+
+/* Final Button - MORE ROMANTIC */
+#finalBtn{
+  position:absolute;
+  right:6%;
+  top:82%;
+  padding:16px 32px;
+  border-radius:999px;
+  border:2px solid rgba(255,215,0,.5);
+  background:linear-gradient(135deg, rgba(255,215,0,.2), rgba(255,185,0,.2));
+  color:#ffd700;
+  font-size:18px;
+  cursor:pointer;
+  opacity:0;
+  transform:translateY(20px);
+  pointer-events:none;
+  transition:all 1.4s cubic-bezier(.34,.8,.34,1);
+  box-shadow:0 0 20px rgba(255,215,0,.3);
+}
+#finalBtn.show{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+#finalBtn:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 35px rgba(255,215,0,.6);
+  border-color:rgba(255,215,0,.9);
+}
+
+/* Final Scene - ANIMATED */
+#finalScene{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:1000;
+  opacity:0;
+  transition:all 2s ease;
+}
+#finalScene.show{
+  display:flex;
+  opacity:1;
+  background:rgba(0,0,0,0.95);
+}
+
+#finalContent{
+  text-align:center;
+  max-width:800px;
+  padding:40px;
+  position:relative;
+  z-index:2;
+  transform:scale(0.8);
+  opacity:0;
+  transition:all 1.5s cubic-bezier(.34,1.2,.64,1);
+}
+#finalScene.show #finalContent{
+  transform:scale(1);
+  opacity:1;
+}
+
+#finalContent h1{
+  font-family:'Great Vibes',cursive;
+  font-size:64px;
+  color:#ff4d4d;
+  margin-bottom:30px;
+  text-shadow:0 0 30px rgba(255,80,80,.9);
+  animation:titleGlow 3s ease-in-out infinite;
+}
+
+@keyframes titleGlow{
+  0%, 100%{ 
+    text-shadow:0 0 30px rgba(255,80,80,.9), 0 0 60px rgba(255,80,80,.5);
+    transform:scale(1);
+  }
+  50%{ 
+    text-shadow:0 0 40px rgba(255,80,80,1), 0 0 80px rgba(255,80,80,.7);
+    transform:scale(1.03);
+  }
+}
+
+#finalContent p{
+  font-size:26px;
+  line-height:2;
+  margin:20px 0;
+  opacity:0;
+  transform:translateY(20px);
+  animation:fadeInUp 1s ease forwards;
+}
+
+#finalContent p:nth-child(2){ animation-delay:0.5s; }
+#finalContent p:nth-child(3){ animation-delay:1s; }
+#finalContent p:nth-child(4){ animation-delay:1.5s; }
+#finalContent p:nth-child(5){ animation-delay:2s; }
+#finalContent p:nth-child(6){ animation-delay:2.5s; }
+#finalContent p:nth-child(7){ animation-delay:3s; }
+#finalContent p:nth-child(8){ animation-delay:3.5s; }
+
+@keyframes fadeInUp{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* Plane animation - MORE DYNAMIC */
+#plane{
+  position:fixed;
+  font-size:60px;
+  z-index:1;
+  animation:flyAcross 10s ease-in-out infinite;
+  filter:drop-shadow(0 0 20px rgba(255,255,255,.6));
+}
+
+@keyframes flyAcross{
+  0%{
+    left:-100px;
+    top:15%;
+    transform:rotate(-15deg) scale(0.8);
+    opacity:0;
+  }
+  10%{
+    opacity:1;
+  }
+  30%{
+    left:30%;
+    top:25%;
+    transform:rotate(0deg) scale(1);
+  }
+  50%{
+    left:50%;
+    top:30%;
+    transform:rotate(5deg) scale(1.1);
+  }
+  70%{
+    left:70%;
+    top:35%;
+    transform:rotate(8deg) scale(1);
+  }
+  90%{
+    opacity:1;
+  }
+  100%{
+    left:110%;
+    top:40%;
+    transform:rotate(15deg) scale(0.8);
+    opacity:0;
+  }
 }
 
 /* Flowers */
@@ -150,9 +327,35 @@ body{
   to{transform:translateY(110vh) rotate(360deg); opacity:0;}
 }
 
-/* Mobile optimization (NO visual change) */
+/* Mobile optimization */
 @media (max-width:768px){
   .leaf{ filter:none; }
+  #heartTree{
+    width:350px;
+    height:310px;
+  }
+  #trunk{
+    width:24px;
+  }
+  @keyframes growTrunk{ to{height:220px;} }
+  #text{
+    width:90%;
+    right:5%;
+    font-size:18px;
+  }
+  #loveBtn, #finalBtn{
+    right:5%;
+    font-size:15px;
+  }
+  #finalContent{
+    padding:20px;
+  }
+  #finalContent h1{
+    font-size:42px;
+  }
+  #finalContent p{
+    font-size:20px;
+  }
 }
 </style>
 </head>
@@ -168,7 +371,22 @@ body{
 </div>
 
 <div id="text"></div>
-<button id="loveBtn">I love you ❤️ — if you love me click here</button>
+<button id="loveBtn">Mon cœur bat pour toi ❤️</button>
+<button id="finalBtn">Notre histoire, nos univers ✨</button>
+
+<div id="finalScene">
+  <div id="plane">✈️</div>
+  <div id="finalContent">
+    <h1>Code & Wings ✨</h1>
+    <p>J'écris des lignes qui donnent vie aux machines 💻</p>
+    <p>Tu dessines des ailes qui font voler les rêves 🚀</p>
+    <p>I build the logic that powers the world</p>
+    <p>You create the wings that conquer the sky</p>
+    <p>Together, nous créons l'impossible ∞</p>
+    <p style="color:#ffd700; font-size:32px; margin-top:40px;">Mon ingénieure aérospatiale ✨</p>
+    <p style="color:#ff4d4d; font-size:28px;">Code + Aéronautique = Notre Univers 💖</p>
+  </div>
+</div>
 
 <audio id="music" loop>
   <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_946bdbb4c3.mp3">
@@ -181,12 +399,14 @@ const tree=document.getElementById("tree");
 const heartTree=document.getElementById("heartTree");
 const textBox=document.getElementById("text");
 const loveBtn=document.getElementById("loveBtn");
+const finalBtn=document.getElementById("finalBtn");
+const finalScene=document.getElementById("finalScene");
 const music=document.getElementById("music");
 
 let typingStarted=false;
 let flowerInterval;
 
-/* HEART SHAPE (same logic, fewer points) */
+/* HEART SHAPE - SMALLER (adjusted points) */
 function buildHeartPoints(){
   const w=heartTree.clientWidth;
   const h=heartTree.clientHeight;
@@ -201,7 +421,7 @@ function buildHeartPoints(){
     const y=13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t);
     outline.push([cx+x*scale,cy-y*scale]);
   }
-  for(let i=0;i<360;i++){
+  for(let i=0;i<380;i++){
     const b=outline[Math.random()*outline.length|0];
     const pull=Math.pow(Math.random(),1.6);
     fill.push([
@@ -214,14 +434,14 @@ function buildHeartPoints(){
 
 function spawnHeart(points){
   heartTree.innerHTML="";
-  const base=3.2, step=0.03;
+  const base=3.2, step=0.028;
   points.forEach((p,i)=>{
     const l=document.createElement("div");
     l.className="leaf";
     l.innerHTML="❤️";
     l.style.left=p[0]+"px";
     l.style.top=p[1]+"px";
-    l.style.fontSize=(15+Math.random()*10)+"px";
+    l.style.fontSize=(14+Math.random()*11)+"px";
     l.style.animationDelay=(base+i*step)+"s";
     heartTree.appendChild(l);
   });
@@ -234,13 +454,14 @@ Une nouvelle année commence,<br>
 and from our roots, love keeps growing,<br>
 plus fort, plus haut, plus nous ❤️<br><br>
 
-<span class="name">Maroua ❤️</span><br>
+<span class="name">Maroua ❤️</span><br><br>
+
 hamlghkam a dunithiw<br>
 rabi ikhlina lba3dana ❤️<br>
 kol 3am w hna kifkif ❤️<br><br>
 
-Je t’aime today,<br>
-je t’aime tomorrow,<br>
+Je t'aime today,<br>
+je t'aime tomorrow,<br>
 and for every year our love keeps rising ✨
 `;
 
@@ -259,16 +480,24 @@ loveBtn.onclick=()=>{
   typingStarted=true;
 
   loveBtn.style.display="none";
-  textBox.style.opacity=1;
+  textBox.classList.add("visible");
 
   let i=0;
   const t=setInterval(()=>{
     textBox.innerHTML=message.slice(0,i++);
-    if(i>message.length) clearInterval(t);
+    if(i>message.length){
+      clearInterval(t);
+      setTimeout(()=>finalBtn.classList.add("show"),2000);
+    }
   },70);
 };
 
-/* 🌸 ENDLESS FLOWER RAIN (SAFE) */
+finalBtn.onclick=()=>{
+  finalBtn.style.display="none";
+  finalScene.classList.add("show");
+};
+
+/* 🌸 ENDLESS FLOWER RAIN */
 function startFlowerRain(){
   flowerInterval=setInterval(()=>{
     if(document.querySelectorAll('.flower').length>25) return;
