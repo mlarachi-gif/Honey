@@ -7,6 +7,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
 body{
   margin:0;
   height:100vh;
@@ -16,7 +20,7 @@ body{
   color:white;
 }
 
-/* Start heart - ENHANCED */
+/* Start heart - ULTRA OPTIMIZED */
 #start{
   position:absolute;
   top:50%;
@@ -24,21 +28,20 @@ body{
   transform:translate(-50%,-50%);
   font-size:120px;
   cursor:pointer;
-  animation:pulse 2.4s cubic-bezier(.4,0,.2,1) infinite;
-  filter:drop-shadow(0 0 30px rgba(255,80,90,.8)) drop-shadow(0 0 60px rgba(255,80,90,.4));
-  transition: all 0.3s ease;
+  animation:pulse 2s ease-in-out infinite;
+  filter:drop-shadow(0 0 20px rgba(255,80,90,.6));
+  transition: transform 0.2s ease;
+  will-change: transform;
 }
 #start:hover{
-  transform:translate(-50%,-50%) scale(1.15);
-  filter:drop-shadow(0 0 40px rgba(255,80,90,1)) drop-shadow(0 0 80px rgba(255,80,90,.6));
+  transform:translate(-50%,-50%) scale(1.1);
 }
 @keyframes pulse{
-  0%{transform:translate(-50%,-50%) scale(1);}
-  50%{transform:translate(-50%,-50%) scale(1.25);}
-  100%{transform:translate(-50%,-50%) scale(1);}
+  0%, 100%{transform:translate(-50%,-50%) scale(1);}
+  50%{transform:translate(-50%,-50%) scale(1.15);}
 }
 
-/* Click hint - ENHANCED */
+/* Click hint */
 #startHint{
   position:absolute;
   top:58%;
@@ -46,28 +49,29 @@ body{
   transform:translateX(-50%);
   font-size:20px;
   font-weight:500;
-  opacity:.9;
-  animation:hintFloat 2.2s ease-in-out infinite;
+  opacity:.85;
+  animation:hintFloat 2s ease-in-out infinite;
   pointer-events:none;
-  background:linear-gradient(135deg, rgba(255,77,77,.15), rgba(196,69,105,.15));
+  background:linear-gradient(135deg, rgba(255,77,77,.12), rgba(196,69,105,.12));
   padding:12px 28px;
   border-radius:50px;
-  border:2px solid rgba(255,107,157,.3);
-  box-shadow:0 0 25px rgba(255,107,157,.4);
+  border:2px solid rgba(255,107,157,.25);
+  box-shadow:0 0 20px rgba(255,107,157,.3);
+  will-change: transform;
 }
 @keyframes hintFloat{
-  0%{transform:translate(-50%,0); opacity:.7;}
-  50%{transform:translate(-50%,8px); opacity:1;}
-  100%{transform:translate(-50%,0); opacity:.7;}
+  0%, 100%{transform:translate(-50%,0); opacity:.7;}
+  50%{transform:translate(-50%,6px); opacity:.95;}
 }
 
-/* Tree - LEFT SIDE - MORE ROMANTIC */
+/* Tree - SLOWER ANIMATION */
 #tree{
   position:absolute;
   bottom:-400px;
   left:2%;
   display:none;
   animation:riseTree 5s cubic-bezier(.34,.8,.34,1) forwards, sway 4s ease-in-out infinite 5.5s;
+  will-change: bottom;
   filter:drop-shadow(0 10px 30px rgba(255,80,90,.3));
 }
 @keyframes riseTree{ 
@@ -77,55 +81,27 @@ body{
   } 
 }
 @keyframes sway{
-  0%, 100%{ 
-    transform:rotate(0deg); 
-  }
-  25%{ 
-    transform:rotate(-1.5deg); 
-  }
-  75%{ 
-    transform:rotate(1.5deg); 
-  }
+  0%, 100%{transform:rotate(0deg);}
+  25%{transform:rotate(-1.5deg);}
+  75%{transform:rotate(1.5deg);}
 }
 
-/* Trunk - SMOOTHER & MORE ROMANTIC */
+/* Trunk - SLOWER */
 #trunk{
   width:32px;
   height:0;
-  background:linear-gradient(to bottom, #8B4513 0%, #654321 50%, #4a2f1a 100%);
+  background:linear-gradient(to bottom, #8B4513, #654321);
   margin:auto;
   border-radius:16px;
-  box-shadow: 
-    inset 0 0 18px rgba(0,0,0,.35),
-    0 5px 20px rgba(139,69,19,.3);
+  box-shadow:inset 0 0 12px rgba(0,0,0,.3);
   animation:growTrunk 4s cubic-bezier(.34,.8,.34,1) forwards;
-  position:relative;
-}
-#trunk::after{
-  content:'';
-  position:absolute;
-  top:0;
-  left:50%;
-  width:50%;
-  height:100%;
-  background:linear-gradient(to right, rgba(255,255,255,.1), transparent);
-  border-radius:16px 0 0 16px;
+  will-change: height;
 }
 @keyframes growTrunk{ 
-  0%{
-    height:0;
-    opacity:0;
-  }
-  50%{
-    opacity:1;
-  }
-  100%{
-    height:320px;
-    opacity:1;
-  } 
+  to{height:320px;} 
 }
 
-/* Heart area - MORE ROMANTIC */
+/* Heart area */
 #heartTree{
   width:550px;
   height:480px;
@@ -135,47 +111,27 @@ body{
 }
 
 @keyframes heartGlow{
-  0%, 100%{
-    filter:drop-shadow(0 0 15px rgba(255,70,90,.3));
-  }
-  50%{
-    filter:drop-shadow(0 0 30px rgba(255,70,90,.6));
-  }
+  0%, 100%{filter:drop-shadow(0 0 15px rgba(255,70,90,.3));}
+  50%{filter:drop-shadow(0 0 30px rgba(255,70,90,.6));}
 }
 
-/* Heart leaves - MORE ROMANTIC & SMOOTH */
+/* Heart leaves - SLOWER BLOOM */
 .leaf{
   position:absolute;
   opacity:0;
-  transform:translateY(30px) scale(0.2) rotate(0deg);
-  animation:bloom 3.2s cubic-bezier(.34,1.2,.64,1) forwards;
-  filter:
-    drop-shadow(0 0 12px rgba(255,70,90,.5))
-    drop-shadow(0 0 25px rgba(255,70,90,.3));
+  transform:scale(0.3);
+  animation:bloom 3s cubic-bezier(.34,1.2,.64,1) forwards;
+  will-change: opacity, transform;
+  filter:drop-shadow(0 0 12px rgba(255,70,90,.5));
 }
 @keyframes bloom{
-  0%{
-    opacity:0;
-    transform:translateY(40px) scale(0.1) rotate(-30deg);
-  }
-  40%{
-    opacity:0.7;
-    transform:translateY(10px) scale(0.9) rotate(10deg);
-  }
-  60%{
-    opacity:1;
-    transform:translateY(-8px) scale(1.12) rotate(5deg);
-  }
-  75%{
-    transform:translateY(-3px) scale(1.05) rotate(-2deg);
-  }
-  100%{
-    opacity:1;
-    transform:translateY(0) scale(1) rotate(0deg);
-  }
+  0%{opacity:0; transform:translateY(30px) scale(0.2) rotate(-20deg);}
+  40%{opacity:0.7; transform:translateY(5px) scale(0.9) rotate(5deg);}
+  60%{opacity:1; transform:translateY(-5px) scale(1.1) rotate(-2deg);}
+  100%{opacity:1; transform:translateY(0) scale(1) rotate(0deg);}
 }
 
-/* Text - SMOOTHER */
+/* Text */
 #text{
   position:absolute;
   top:16%;
@@ -184,140 +140,135 @@ body{
   font-size:22px;
   line-height:1.8;
   opacity:0;
-  transition:opacity 2s ease, transform 2s ease;
-  transform:translateY(20px);
+  transition:opacity 1.5s ease;
 }
 #text.visible{
   opacity:1;
-  transform:translateY(0);
 }
 .name{
   font-family:'Great Vibes',cursive;
   font-size:56px;
   color:#ff4d4d;
-  text-shadow:0 0 20px rgba(255,80,80,.9);
+  text-shadow:0 0 15px rgba(255,80,80,.8);
 }
 
-/* Button - MORE AESTHETIC */
-#loveBtn{
-  position:absolute;
+/* FALLING HEART THAT BECOMES BUTTON */
+.falling-heart{
+  position:fixed;
+  font-size:50px;
+  z-index:150;
+  animation:heartFall 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  filter:drop-shadow(0 0 15px rgba(255,70,90,.8));
+  pointer-events:none;
+}
+
+@keyframes heartFall{
+  0%{
+    opacity:1;
+    transform:translateY(0) rotate(0deg) scale(1);
+  }
+  30%{
+    transform:translateY(15vh) rotate(180deg) scale(0.9);
+  }
+  60%{
+    transform:translateY(35vh) rotate(360deg) scale(0.7);
+  }
+  80%{
+    transform:translateY(50vh) rotate(450deg) scale(0.4);
+  }
+  100%{
+    opacity:0;
+    transform:translateY(56vh) rotate(540deg) scale(0);
+  }
+}
+
+/* Button - SUPER SMOOTH & ROMANTIC */
+.romantic-btn{
+  position:fixed;
   right:6%;
-  top:72%;
-  padding:18px 40px;
+  padding:18px 42px;
   border-radius:50px;
-  border:2px solid transparent;
-  background:linear-gradient(135deg, rgba(255,77,77,.25), rgba(196,69,105,.25));
-  background-clip:padding-box;
-  color:#ffb3d9;
-  font-size:19px;
+  border:none;
+  font-size:18px;
   font-weight:500;
   cursor:pointer;
   opacity:0;
-  transform:translateY(20px);
+  transform:scale(0);
   pointer-events:none;
-  transition:all 0.4s cubic-bezier(.34,.8,.34,1);
-  box-shadow:
-    0 0 30px rgba(255,107,157,.5),
-    inset 0 0 20px rgba(255,107,157,.15);
-  position:relative;
-  overflow:hidden;
+  transition:all 0.3s ease;
+  box-shadow:0 5px 30px rgba(255,107,157,.5);
+  background:linear-gradient(135deg, #ff4d6d, #c44569);
+  color:white;
+  will-change: transform, opacity;
+  text-shadow:0 2px 4px rgba(0,0,0,.3);
 }
-#loveBtn::before{
+
+.romantic-btn::before{
   content:'';
   position:absolute;
-  top:-2px;
-  left:-2px;
-  right:-2px;
-  bottom:-2px;
-  background:linear-gradient(135deg, #ff4d6d, #c44569, #ff6b9d);
+  inset:-3px;
   border-radius:50px;
-  z-index:-1;
+  padding:3px;
+  background:linear-gradient(135deg, #ff6b9d, #ff4d6d, #c44569);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
   opacity:0.6;
-  animation:borderGlow 3s ease infinite;
+  animation:borderGlow 2s ease infinite;
 }
+
 @keyframes borderGlow{
-  0%, 100%{ opacity:0.6; }
-  50%{ opacity:1; }
-}
-#loveBtn.show{
-  opacity:1;
-  transform:translateY(0);
-  pointer-events:auto;
-}
-#loveBtn:hover{
-  transform:translateY(-3px) scale(1.05);
-  box-shadow:
-    0 0 50px rgba(255,107,157,.8),
-    0 10px 30px rgba(255,107,157,.4),
-    inset 0 0 30px rgba(255,107,157,.25);
-  color:#fff;
+  0%, 100%{opacity:0.5;}
+  50%{opacity:0.9;}
 }
 
-/* Final Button - MORE AESTHETIC */
+#loveBtn{
+  top:72%;
+}
+
 #finalBtn{
-  position:absolute;
-  right:6%;
-  top:82%;
-  padding:18px 40px;
-  border-radius:50px;
-  border:2px solid transparent;
-  background:linear-gradient(135deg, rgba(255,215,0,.25), rgba(255,185,0,.25));
-  background-clip:padding-box;
-  color:#ffd700;
-  font-size:19px;
-  font-weight:500;
-  cursor:pointer;
-  opacity:0;
-  transform:translateY(20px);
-  pointer-events:none;
-  transition:all 0.4s cubic-bezier(.34,.8,.34,1);
-  box-shadow:
-    0 0 30px rgba(255,215,0,.5),
-    inset 0 0 20px rgba(255,215,0,.15);
-  position:relative;
-  overflow:hidden;
-}
-#finalBtn::before{
-  content:'';
-  position:absolute;
-  top:-2px;
-  left:-2px;
-  right:-2px;
-  bottom:-2px;
-  background:linear-gradient(135deg, #ffd700, #ffb900, #ffa500);
-  border-radius:50px;
-  z-index:-1;
-  opacity:0.6;
-  animation:borderGlow 3s ease infinite;
-}
-#finalBtn.show{
-  opacity:1;
-  transform:translateY(0);
-  pointer-events:auto;
-}
-#finalBtn:hover{
-  transform:translateY(-3px) scale(1.05);
-  box-shadow:
-    0 0 50px rgba(255,215,0,.8),
-    0 10px 30px rgba(255,215,0,.4),
-    inset 0 0 30px rgba(255,215,0,.25);
-  color:#fff;
+  top:85%;
+  background:linear-gradient(135deg, #ffd700, #ffb900);
+  box-shadow:0 5px 30px rgba(255,215,0,.5);
 }
 
-/* Final Scene - ENHANCED AESTHETIC */
+#finalBtn::before{
+  background:linear-gradient(135deg, #ffa500, #ffd700, #ffb900);
+}
+
+.romantic-btn.show{
+  opacity:1;
+  transform:scale(1);
+  pointer-events:auto;
+  animation:btnPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes btnPop{
+  0%{transform:scale(0);}
+  70%{transform:scale(1.1);}
+  100%{transform:scale(1);}
+}
+
+.romantic-btn:hover{
+  transform:scale(1.08) translateY(-3px);
+  box-shadow:0 8px 40px rgba(255,107,157,.7);
+}
+
+#finalBtn:hover{
+  box-shadow:0 8px 40px rgba(255,215,0,.7);
+}
+
+/* Final Scene - OPTIMIZED */
 #finalScene{
   position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
+  inset:0;
   background:rgba(0,0,0,0);
   display:none;
   justify-content:center;
   align-items:center;
   z-index:1000;
   opacity:0;
-  transition:all 3s ease;
+  transition:opacity 2s ease;
 }
 #finalScene.show{
   display:flex;
@@ -338,38 +289,22 @@ body{
   font-size:78px;
   color:#ff4d4d;
   margin-bottom:60px;
-  text-shadow:
-    0 0 40px rgba(255,80,80,1),
-    0 0 80px rgba(255,80,80,.6),
-    0 0 120px rgba(255,80,80,.3);
-  animation:titleGlow 4s ease-in-out infinite;
+  text-shadow:0 0 30px rgba(255,80,80,.9);
+  animation:titleGlow 3s ease-in-out infinite;
   opacity:0;
-  transform:translateY(-50px);
+  transform:translateY(-30px);
 }
 #finalScene.show #finalContent h1{
-  animation:titleGlow 4s ease-in-out infinite, titleDrop 2s cubic-bezier(.34,.8,.34,1) forwards;
+  animation:titleGlow 3s ease-in-out infinite, titleDrop 1.2s ease-out forwards;
 }
 
 @keyframes titleDrop{
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
+  to{opacity:1; transform:translateY(0);}
 }
 
 @keyframes titleGlow{
-  0%, 100%{ 
-    text-shadow:
-      0 0 40px rgba(255,80,80,1),
-      0 0 80px rgba(255,80,80,.6),
-      0 0 120px rgba(255,80,80,.3);
-  }
-  50%{ 
-    text-shadow:
-      0 0 50px rgba(255,80,80,1),
-      0 0 100px rgba(255,80,80,.8),
-      0 0 150px rgba(255,80,80,.5);
-  }
+  0%, 100%{text-shadow:0 0 30px rgba(255,80,80,.8);}
+  50%{text-shadow:0 0 45px rgba(255,80,80,1);}
 }
 
 #finalContent .message-line{
@@ -378,253 +313,117 @@ body{
   line-height:2.4;
   margin:20px 0;
   opacity:0;
-  transform:translateY(-80px);
-  text-shadow:0 2px 15px rgba(255,255,255,.2);
-  letter-spacing:0.5px;
+  text-shadow:0 2px 10px rgba(255,255,255,.15);
 }
 
 .message-line.visible{
-  animation:dropFromSky 2.5s cubic-bezier(.34,.8,.34,1) forwards;
+  animation:dropFromSky 1.5s ease-out forwards;
 }
 
 @keyframes dropFromSky{
-  0%{
-    opacity:0;
-    transform:translateY(-100px) scale(0.8);
-  }
-  60%{
-    opacity:1;
-    transform:translateY(5px) scale(1.05);
-  }
-  80%{
-    transform:translateY(-2px) scale(1);
-  }
-  100%{
-    opacity:1;
-    transform:translateY(0) scale(1);
-  }
+  0%{opacity:0; transform:translateY(-50px);}
+  100%{opacity:1; transform:translateY(0);}
 }
 
-/* Enhanced plane squadron animation - CONTINUOUS DROPPING */
+/* Optimized plane squadron */
 .plane-squadron{
   position:fixed;
-  font-size:50px;
+  font-size:45px;
   z-index:999;
-  filter:drop-shadow(0 0 20px rgba(255,255,255,.8));
+  filter:drop-shadow(0 0 15px rgba(255,255,255,.6));
+  will-change: left, top;
 }
 
-/* Each plane drops one line continuously */
-.plane-1{
-  animation:planeFlightLeader 6s cubic-bezier(.42,0,.58,1) infinite;
-  animation-delay:0s;
-}
-.plane-2{
-  animation:planeFlightLeader 6s cubic-bezier(.42,0,.58,1) infinite;
-  animation-delay:7s;
-}
-.plane-3{
-  animation:planeFlightLeader 6s cubic-bezier(.42,0,.58,1) infinite;
-  animation-delay:14s;
-}
-.plane-4{
-  animation:planeFlightLeader 6s cubic-bezier(.42,0,.58,1) infinite;
-  animation-delay:21s;
-}
-.plane-5{
-  animation:planeFlightLeader 6s cubic-bezier(.42,0,.58,1) infinite;
-  animation-delay:28s;
-}
-.plane-6{
-  animation:planeFlightLeader 6s cubic-bezier(.42,0,.58,1) infinite;
-  animation-delay:35s;
-}
-.plane-7{
-  animation:planeFlightLeader 6s cubic-bezier(.42,0,.58,1) infinite;
-  animation-delay:42s;
-}
+.plane-1{animation:planeFlightLeader 5s linear infinite; animation-delay:0s;}
+.plane-2{animation:planeFlightLeader 5s linear infinite; animation-delay:7s;}
+.plane-3{animation:planeFlightLeader 5s linear infinite; animation-delay:14s;}
+.plane-4{animation:planeFlightLeader 5s linear infinite; animation-delay:21s;}
+.plane-5{animation:planeFlightLeader 5s linear infinite; animation-delay:28s;}
+.plane-6{animation:planeFlightLeader 5s linear infinite; animation-delay:35s;}
+.plane-7{animation:planeFlightLeader 5s linear infinite; animation-delay:42s;}
 
 @keyframes planeFlightLeader{
-  0%{
-    left:-100px;
-    top:-50px;
-    transform:rotate(-20deg) scale(0.6);
-    opacity:0;
-  }
-  10%{
-    opacity:1;
-    left:8%;
-    top:3%;
-    transform:rotate(-12deg) scale(0.75);
-  }
-  25%{
-    left:22%;
-    top:8%;
-    transform:rotate(-6deg) scale(0.85);
-  }
-  40%{
-    left:38%;
-    top:12%;
-    transform:rotate(-2deg) scale(0.95);
-  }
-  55%{
-    left:55%;
-    top:16%;
-    transform:rotate(2deg) scale(1);
-  }
-  70%{
-    left:72%;
-    top:20%;
-    transform:rotate(6deg) scale(0.95);
-  }
-  85%{
-    left:88%;
-    top:24%;
-    transform:rotate(12deg) scale(0.8);
-    opacity:1;
-  }
-  100%{
-    left:120%;
-    top:28%;
-    transform:rotate(20deg) scale(0.6);
-    opacity:0;
-  }
+  0%{left:-100px; top:-50px; opacity:0;}
+  5%{opacity:1;}
+  95%{opacity:1;}
+  100%{left:110%; top:25%; opacity:0;}
 }
 
-/* Background plane for ambiance - SLOWER */
+/* Background plane */
 #plane{
   position:fixed;
-  font-size:60px;
+  font-size:55px;
   z-index:1;
-  animation:flyAcrossEnhanced 25s cubic-bezier(.42,0,.58,1) infinite;
-  filter:drop-shadow(0 0 20px rgba(255,255,255,.4));
-  opacity:0.5;
+  animation:flyAcrossEnhanced 22s linear infinite;
+  filter:drop-shadow(0 0 15px rgba(255,255,255,.3));
+  opacity:0.4;
+  will-change: left;
 }
 
 @keyframes flyAcrossEnhanced{
-  0%{
-    left:-120px;
-    top:70%;
-    transform:rotate(-15deg) scale(0.6);
-    opacity:0;
-  }
-  8%{
-    opacity:0.5;
-  }
-  20%{
-    left:18%;
-    top:72%;
-    transform:rotate(-8deg) scale(0.7);
-  }
-  40%{
-    left:38%;
-    top:74%;
-    transform:rotate(-2deg) scale(0.75);
-  }
-  60%{
-    left:58%;
-    top:76%;
-    transform:rotate(3deg) scale(0.8);
-  }
-  80%{
-    left:78%;
-    top:78%;
-    transform:rotate(8deg) scale(0.75);
-  }
-  92%{
-    opacity:0.5;
-  }
-  100%{
-    left:115%;
-    top:80%;
-    transform:rotate(15deg) scale(0.6);
-    opacity:0;
-  }
+  0%{left:-100px; opacity:0;}
+  5%{opacity:0.4;}
+  95%{opacity:0.4;}
+  100%{left:110%; opacity:0;}
 }
 
-/* Papers falling - SLOWER, MORE BEAUTIFUL */
+/* Papers falling - REDUCED */
 .paper{
   position:fixed;
-  font-size:28px;
+  font-size:24px;
   pointer-events:none;
   z-index:1;
-  animation:paperFallSlow linear forwards;
-  filter:drop-shadow(0 0 8px rgba(255,255,255,.3));
+  animation:paperFallSlow 10s linear forwards;
+  will-change: transform;
 }
 @keyframes paperFallSlow{
-  0%{
-    transform:translateY(0) rotate(0deg) translateX(0);
-    opacity:1;
-  }
-  25%{
-    transform:translateY(25vh) rotate(180deg) translateX(-30px);
-    opacity:0.9;
-  }
-  50%{
-    transform:translateY(50vh) rotate(360deg) translateX(20px);
-    opacity:0.8;
-  }
-  75%{
-    transform:translateY(75vh) rotate(540deg) translateX(-15px);
-    opacity:0.6;
-  }
-  100%{
-    transform:translateY(110vh) rotate(720deg) translateX(0);
-    opacity:0.2;
-  }
+  0%{transform:translateY(0) rotate(0deg); opacity:0.8;}
+  100%{transform:translateY(110vh) rotate(540deg); opacity:0;}
 }
 
-/* Flowers */
+/* Flowers - CONTINUOUS RAIN */
 .flower{
   position:fixed;
   top:-10vh;
-  font-size:20px;
+  font-size:22px;
   pointer-events:none;
-  animation:fall linear forwards;
+  animation:fall 8s linear forwards;
+  will-change: transform;
+  filter:drop-shadow(0 0 8px rgba(255,182,193,.5));
 }
 @keyframes fall{
   to{transform:translateY(110vh) rotate(360deg); opacity:0;}
 }
 
+/* Hearts rain in final scene */
+.heart-rain{
+  position:fixed;
+  top:-10vh;
+  font-size:24px;
+  pointer-events:none;
+  animation:heartRainFall 9s linear forwards;
+  will-change: transform;
+  filter:drop-shadow(0 0 10px rgba(255,70,90,.6));
+}
+@keyframes heartRainFall{
+  0%{transform:translateY(0) rotate(0deg); opacity:1;}
+  100%{transform:translateY(110vh) rotate(720deg); opacity:0;}
+}
+
 /* Mobile optimization */
 @media (max-width:768px){
-  #start{
-    font-size:90px;
-  }
-  #startHint{
-    font-size:16px;
-    padding:10px 20px;
-  }
-  .leaf{ filter:none; }
-  #heartTree{
-    width:350px;
-    height:310px;
-  }
-  #trunk{
-    width:24px;
-  }
-  @keyframes growTrunk{ to{height:220px;} }
-  #text{
-    width:90%;
-    right:5%;
-    font-size:18px;
-  }
-  #loveBtn, #finalBtn{
-    right:5%;
-    font-size:16px;
-    padding:14px 32px;
-  }
-  #finalContent{
-    padding:20px;
-  }
-  #finalContent h1{
-    font-size:42px;
-  }
-  #finalContent .message-line{
-    font-size:20px;
-  }
-  #plane{
-    font-size:50px;
-  }
+  #start{font-size:90px;}
+  #startHint{font-size:16px; padding:10px 20px;}
+  #heartTree{width:350px; height:310px;}
+  #trunk{width:24px;}
+  @keyframes growTrunk{to{height:220px;}}
+  #text{width:90%; right:5%; font-size:18px;}
+  .romantic-btn{right:5%; font-size:16px; padding:14px 32px;}
+  #finalContent{padding:20px;}
+  #finalContent h1{font-size:42px;}
+  #finalContent .message-line{font-size:20px;}
+  #plane{font-size:45px;}
+  .plane-squadron{font-size:38px;}
 }
 </style>
 </head>
@@ -640,8 +439,8 @@ body{
 </div>
 
 <div id="text"></div>
-<button id="loveBtn">Mon cœur bat pour toi ❤️</button>
-<button id="finalBtn">Notre histoire, nos univers ✨</button>
+<button id="loveBtn" class="romantic-btn">Mon cœur bat pour toi ❤️</button>
+<button id="finalBtn" class="romantic-btn">Notre histoire, nos univers ✨</button>
 
 <div id="finalScene">
   <div id="plane">✈️</div>
@@ -655,7 +454,6 @@ body{
     <div class="message-line" style="font-size:36px; color:#ff4d4d;">to us, Maroua ❤️</div>
     <div class="message-line" style="font-size:34px; color:#ffb3d9;">and dreams that never land ✨</div>
   </div>
-  <!-- Squadron planes -->
   <div class="plane-squadron plane-1" style="left:-100px; top:-50px;">✈️</div>
   <div class="plane-squadron plane-2" style="left:-100px; top:-50px;">✈️</div>
   <div class="plane-squadron plane-3" style="left:-100px; top:-50px;">✈️</div>
@@ -684,7 +482,7 @@ let typingStarted=false;
 let flowerInterval;
 let paperInterval;
 
-/* HEART SHAPE - SMALLER (adjusted points) */
+/* HEART SHAPE - REDUCED COMPLEXITY */
 function buildHeartPoints(){
   const w=heartTree.clientWidth;
   const h=heartTree.clientHeight;
@@ -692,14 +490,18 @@ function buildHeartPoints(){
   const cy=h*0.55;
   const scale=Math.min(w,h)*0.032;
 
-  const outline=[], fill=[];
-  for(let i=0;i<200;i++){
-    const t=(i/200)*Math.PI*2;
+  const outline=[];
+  // Reduced from 200 to 120 for better performance
+  for(let i=0;i<120;i++){
+    const t=(i/120)*Math.PI*2;
     const x=16*Math.pow(Math.sin(t),3);
     const y=13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t);
     outline.push([cx+x*scale,cy-y*scale]);
   }
-  for(let i=0;i<380;i++){
+  
+  const fill=[];
+  // Reduced from 380 to 250 for better performance
+  for(let i=0;i<250;i++){
     const b=outline[Math.random()*outline.length|0];
     const pull=Math.pow(Math.random(),1.6);
     fill.push([
@@ -712,14 +514,14 @@ function buildHeartPoints(){
 
 function spawnHeart(points){
   heartTree.innerHTML="";
-  const base=3.2, step=0.028;
+  const base=3, step=0.025; // Slower animation
   points.forEach((p,i)=>{
     const l=document.createElement("div");
     l.className="leaf";
     l.innerHTML="❤️";
     l.style.left=p[0]+"px";
     l.style.top=p[1]+"px";
-    l.style.fontSize=(14+Math.random()*11)+"px";
+    l.style.fontSize=(14+Math.random()*10)+"px";
     l.style.animationDelay=(base+i*step)+"s";
     heartTree.appendChild(l);
   });
@@ -743,6 +545,25 @@ je t'aime tomorrow,<br>
 and for every year our love keeps rising ✨
 `;
 
+/* HEART DROPS FROM TREE AND BECOMES BUTTON */
+function createHeartDrop(targetBtn) {
+  const heart = document.createElement("div");
+  heart.className = "falling-heart";
+  heart.innerHTML = "❤️";
+  
+  // Start from tree top area
+  heart.style.left = "12%";
+  heart.style.top = "15%";
+  
+  document.body.appendChild(heart);
+  
+  // Remove heart and show button after animation
+  setTimeout(() => {
+    heart.remove();
+    targetBtn.classList.add("show");
+  }, 2500);
+}
+
 start.onclick=()=>{
   start.style.display="none";
   hint.style.display="none";
@@ -750,7 +571,9 @@ start.onclick=()=>{
   music.play();
   spawnHeart(buildHeartPoints());
   startFlowerRain();
-  setTimeout(()=>loveBtn.classList.add("show"),10000);
+  
+  // Small heart drops from tree and becomes first button
+  setTimeout(()=>createHeartDrop(loveBtn), 8500);
 };
 
 loveBtn.onclick=()=>{
@@ -765,78 +588,96 @@ loveBtn.onclick=()=>{
     textBox.innerHTML=message.slice(0,i++);
     if(i>message.length){
       clearInterval(t);
-      setTimeout(()=>finalBtn.classList.add("show"),2000);
+      // Another small heart drops and becomes second button
+      setTimeout(()=>createHeartDrop(finalBtn), 1500);
     }
-  },70);
+  },50); // Faster typing
 };
 
 finalBtn.onclick=()=>{
   finalBtn.style.display="none";
   finalScene.classList.add("show");
   
-  // Start paper rain when final scene appears
   startPaperRain();
+  startFinalRain(); // Start endless hearts & flowers rain
   
-  // Animate text lines one by one - synchronized with continuous plane drops
   const lines = document.querySelectorAll('.message-line');
   
-  // First cycle of lines (initial drop)
   lines.forEach((line, index) => {
     setTimeout(() => {
       line.classList.add('visible');
-    }, index * 800 + 2000);
+    }, index * 700 + 1800);
   });
   
-  // Reset and repeat lines continuously with planes
-  let cycleCount = 0;
   setInterval(() => {
-    cycleCount++;
     lines.forEach((line, index) => {
       setTimeout(() => {
-        // Remove visible class briefly
         line.classList.remove('visible');
-        // Re-add it to trigger animation again
         setTimeout(() => {
           line.classList.add('visible');
         }, 50);
-      }, index * 800);
+      }, index * 700);
     });
-  }, 49000); // Repeat every 49 seconds (7 planes * 7 seconds)
+  }, 49000);
 };
 
 /* 🌸 ENDLESS FLOWER RAIN */
 function startFlowerRain(){
   flowerInterval=setInterval(()=>{
-    if(document.querySelectorAll('.flower').length>25) return;
+    if(document.querySelectorAll('.flower').length>20) return;
 
     const f=document.createElement("div");
     f.className="flower";
-    f.innerHTML=Math.random()>0.5?"🌸":"💖";
+    f.innerHTML=Math.random()>0.5?"🌸":"💐";
     f.style.left=Math.random()*100+"vw";
-    f.style.animationDuration=(Math.random()*3+6)+"s";
+    f.style.animationDuration=(Math.random()*2+6)+"s";
     document.body.appendChild(f);
 
     setTimeout(()=>f.remove(),9000);
-  },450);
+  },500);
 }
 
-/* 📄 PAPER RAIN - SLOWER, MORE GRACEFUL */
+/* 📄 OPTIMIZED PAPER RAIN */
 function startPaperRain(){
   const papers = ['📄', '📋', '📃', '🗒️'];
   
   paperInterval=setInterval(()=>{
-    if(document.querySelectorAll('.paper').length>15) return;
+    if(document.querySelectorAll('.paper').length>8) return;
 
     const p=document.createElement("div");
     p.className="paper";
     p.innerHTML=papers[Math.floor(Math.random()*papers.length)];
-    p.style.left=(Math.random()*90 + 5)+"vw"; // Keep papers more centered
+    p.style.left=(Math.random()*90 + 5)+"vw";
     p.style.top="-50px";
-    p.style.animationDuration=(Math.random()*4+10)+"s"; // Much slower: 10-14 seconds
+    p.style.animationDuration=(Math.random()*2+8)+"s";
     document.body.appendChild(p);
 
-    setTimeout(()=>p.remove(),15000);
-  },800); // Less frequent spawning for elegance
+    setTimeout(()=>p.remove(),11000);
+  },1100);
+}
+
+/* ❤️ ENDLESS HEARTS & FLOWERS RAIN IN FINAL SCENE */
+function startFinalRain(){
+  setInterval(()=>{
+    const totalElements = document.querySelectorAll('.heart-rain, .flower').length;
+    if(totalElements > 30) return;
+
+    // Randomly choose heart or flower
+    const el=document.createElement("div");
+    if(Math.random() > 0.5){
+      el.className="heart-rain";
+      el.innerHTML=["❤️", "💕", "💖", "💗"][Math.floor(Math.random()*4)];
+    } else {
+      el.className="flower";
+      el.innerHTML=["🌸", "🌺", "🌹", "💐"][Math.floor(Math.random()*4)];
+    }
+    
+    el.style.left=Math.random()*100+"vw";
+    el.style.animationDuration=(Math.random()*3+7)+"s";
+    document.body.appendChild(el);
+
+    setTimeout(()=>el.remove(),11000);
+  },400); // Continuous rain
 }
 </script>
 
